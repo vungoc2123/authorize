@@ -1,0 +1,19 @@
+<p> <a href="/api/addBook" class="link-info">Add book here</a></p>
+{{#each books}}
+<div class="item row border p-2 mb-2">
+  <div class="col-sm-3 text-center mt-3">
+    <input  type="text" value="{{isbn}}" style="border: none;text-align: center; background: none;" readonly>
+  </div>
+  <div class="col-sm-3 text-center mt-3">
+    <input type="text" value="{{title}}" style="border: none;text-align: center; background: none;" readonly>
+  </div>
+  <div class="col-sm-3 text-center mt-3">
+    <input  type="text" value="{{author}}" style="border: none;text-align: center; background: none;"
+      readonly>
+  </div>
+  <div class="col-sm-3 text-center mt-3">
+    <input type="text" value="{{publisher}}" style="border: none;text-align: center; background: none;"
+      readonly>
+  </div>
+</div>
+{{/each}}
