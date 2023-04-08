@@ -33,7 +33,7 @@ app.use(session({
 }));
 app.use((req, res, next) => {
   if (req.session.token) {
-    req.headers.authorization = `Bearer ${req.session.token}`;
+    req.headers.authorization = 'JWT '+ req.session.token;
   }
   next();
 });

@@ -10,7 +10,6 @@ var Book = require("../models/book");
 var mdw = require('../middleware/user.middleware')
 const bodyParser = require("body-parser");
 var request = require('request')
-var token2 = '';
 // // parse requests of content-type - application/json
 router.use(bodyParser.json());
 
@@ -51,7 +50,7 @@ router.post('/signin', async function (req, res) {
                 // if user is found and password is right create a token
                 var token = jwt.sign(user.toJSON(), config.secret);
                 //lưu vào session
-                token2 = token;
+            
                 req.session.token = token;
                 request.get('http://localhost:3000/api/book', {
                     headers: { 'Authorization': 'JWT ' + token }
@@ -71,7 +70,7 @@ router.post('/signin', async function (req, res) {
 
 
 
-router.post('/book', mdw.check_token, async function (req, res) {
+router.post('/book', passport.authenticate("jwt", { session: false }), async function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         console.log(req.body);
@@ -106,7 +105,7 @@ router.get('/book', passport.authenticate("jwt", { session: false }), async func
     }
 });
 
-router.get('/addBook', mdw.check_token, async function (req, res) {
+router.get('/addBook', passport.authenticate("jwt", { session: false }), async function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         res.render('addBook')
